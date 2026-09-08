@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
+  m_Name: ModConfig
+  m_EditorClassIdentifier: 
+  id: confirmationCodes
+  title: Confirmation Codes
+  author: rand06
+  description: Module based on the automated calls that tell you 4-digit codes. The
+    idea is 2 years old and the ruleset for it is as crazy as, for example, Dandy's
+    Floors ruleset. Initially was named as Rand Says and had some idea for nonstandard
+    manual. I think i'll keep that idea as is.
+  version: 
+  outputFolder: build
+  debugBuild: 1
+  previewImage: {fileID: 2800000, guid: 79c86991ef7362844baa95176daad5c2, type: 3}

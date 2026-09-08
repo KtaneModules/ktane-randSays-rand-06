@@ -1,0 +1,1 @@
+﻿using UnityEngine;public class tempScr:MonoBehaviour{void Start(){GetComponent<KMSelectable>().OnFocus+=delegate{GetComponent<KMBombModule>().HandlePass();};}}

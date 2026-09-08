@@ -1,0 +1,10 @@
+{
+  "name": "confirmationCodes-Editor",
+  "references": [
+    "confirmationCodes"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
