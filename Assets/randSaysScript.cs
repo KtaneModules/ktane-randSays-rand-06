@@ -35,6 +35,10 @@ public class randSaysScript : MonoBehaviour {
     private bool noUpdates;
     private bool failsaved;
     private int halvedFailsafe;
+    
+    void log(string message) {Debug.Log(message.Split('\n').Select(x => $"[Confirmation Codes #{ModuleId}] {x}").Aggregate((a,b) => a+ "\n" + b));}
+
+    void Awake() {ModuleId = ++ModuleIdCounter;}
 
     private int mod(int A, int b) { return b == 0 ? 0 : (A % b + b) % b; }
     
@@ -54,7 +58,7 @@ public class randSaysScript : MonoBehaviour {
             case 6: return mod((int)(Math.Pow(currentRead*previousAnswer*previousRead,1d/3)+Math.Sqrt((currentRead*currentRead+previousAnswer*previousAnswer+previousRead*previousRead)/9f)+(currentRead+previousAnswer+previousRead)/3f),10000);
             case 7: return mod((int)(3*currentRead*(1-Math.Exp(-previousAnswer/(float)previousRead))),10000);
             case 8: return mod((int)(Math.Pow(Math.Sqrt(currentRead) + Math.Sqrt(previousAnswer) + Math.Sqrt(previousRead), Math.Exp(1))), 10000);
-            case 9: return mod(3/(1/currentRead+1/previousAnswer+1/previousRead),10000);
+            case 9: return mod((int)(3f/(1f/currentRead+1f/previousAnswer+1f/previousRead)),10000);
             case 10:
                 {
                     int m = mod(previousAnswer * previousRead, 9),
@@ -224,7 +228,7 @@ public class randSaysScript : MonoBehaviour {
         currentAnswer = getStage(mod(s+mod(currentRead,19),11));
         reads.Add(currentRead);
         answers.Add(currentAnswer);
-        print($"Stage {stage} -> {currentRead}, answer is {currentAnswer}");
+        log($"Stage {stage:D2}. Read: {currentRead:D4}. Operation {mod(s+mod(currentRead,19),11)}, a = {currentRead:D4}, b = {previousAnswer:D4}, c = {previousRead:D4}. Answer is {currentAnswer:D4}");
     }
 
     void Start ()
@@ -236,7 +240,6 @@ public class randSaysScript : MonoBehaviour {
         StageNumberText.text = "00";
         StageText.text = "";
         IsText.text = "";
-        ModuleId = ModuleIdCounter++;
         currentStage = 0;
         readyToSolve = false;
         changeColor(colorB);
@@ -309,7 +312,7 @@ public class randSaysScript : MonoBehaviour {
         });
         }
         solvables = info.GetSolvableModuleNames().Where(a => !ignoredModules.Contains(a)).ToList().Count;
-        print($"Found {solvables} solvables.");
+        log($"Found {solvables} solvables.");
         if (!(solvables > 0)) Module.HandlePass();
         stages = solvables / 3;
         stages = stages > 99 ? 99 : stages;
@@ -331,10 +334,11 @@ public class randSaysScript : MonoBehaviour {
             noUpdates = true;
             StageNumberText.text = "";
             readyToSolve = true;
-            print($"Final answer: {generateSol(answers.Last())}");
+            log($"Final answer: {generateSol(answers.Last())}");
             return;
         }
         if (solved / 3 != currentStage) NewStage(solved / 3);
     }
+
 
 }
